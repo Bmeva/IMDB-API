@@ -1,0 +1,72 @@
+evanspay.pythonanywhere.com
+
+private public and partner API
+
+ python -m venv env
+source env/Scripts/activate
+pip install django
+django-admin starproject
+for this project i installed python extension pack by 
+
+Don Jayamanne
+
+i also installed Tabnine: AI Autocomplete & Chat for Javascript,
+ Python, Typescript, PHP, Go, Java & more
+v3.97.0
+TabNine
+reload vs code after installation
+
+to install django rest framwork
+pip install django restframework
+
+
+register rest_framework in installed apps 
+
+https://www.django-rest-framework.org
+
+to move an entire block of code hightlight and press ctrl ] and to move backwards use[
+
+to comment entire lines of code use ctrl and / and to uncomment do the same
+
+
+
+evanspay.pythonanywhere.com
+
+private public and partner API
+
+ python -m venv env
+source env/Scripts/activate
+pip install django
+django-admin starproject
+for this project i installed python extension pack by 
+
+Don Jayamanne
+cccc
+i also installed Tabnine: AI Autocomplete & Chat for Javascript,jnnnnnnnnnn......
+ Python, Typescript, PHP, Go, Java & 
+v3.97.0                 ,
+TabNine
+reload vs code after installation
+
+Serializers are used to convert complex data types, such as queryset instances or model instances, into native Python data types that can be easily rendered into JSON, XML, or other content types.
+They are primarily used for converting database records (e.g., Django model instances) into JSON data that can be sent over the network as a response to an API request.
+Serializers also handle validation of incoming data during deserialization (i.e., converting request data into Python objects).
+Deserializers:
+Deserializers, sometimes referred to as parsers, are used for the opposite operation of serializers. They convert incoming request data (e.g., JSON or XML) into native Python data types that can be processed by Django views and stored in the database.
+Deserializers are used primarily for handling incoming data in API requests and converting it into Django model instances or other Python objects that can be saved to the database.
+Deserializers also handle validation of incoming data to ensure it meets the requirements specified by the application's data models.
+
+
+
+ctrl and / would comment everything
+
+many to many relationship
+many to one relationship
+one to one relationship
+
+if you have this message after editing your model and running migration 
+Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit and manually define a default value in models.py.
+
+ press 1 and then type None
+ 
