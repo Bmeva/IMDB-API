@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from watchlist_app.models import streamplatform, watchlist
+from watchlist_app.models import streamplatform, watchlist, Review
 from django.http import JsonResponse
 from rest_framework.response import Response
 #from rest_framework.decorators import api_view #this would be used if i am using function based view
@@ -7,8 +7,31 @@ from rest_framework.response import Response
 from rest_framework.views import APIView #for class based views use this 
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from watchlist_app.api.serializers import watchlistSerializer, StreamPlatformSerializer
+from watchlist_app.api.serializers import watchlistSerializer, StreamPlatformSerializer, ReviewSerializer
 
+from rest_framework import generics
+from rest_framework import mixins 
+
+
+class reviewDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+    
+
+class ReviewList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
 
 class StreamPlatformAV(APIView):
     def get(self, request):

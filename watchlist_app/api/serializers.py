@@ -7,6 +7,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = "__all__"
 
+
 class watchlistSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many = True, read_only=True)
     len_name = serializers.SerializerMethodField()

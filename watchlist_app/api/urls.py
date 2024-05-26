@@ -18,6 +18,12 @@ urlpatterns = [
     path('streampltformdetail/<int:pk>/', views.StreamPlatformDetailAV.as_view(), name= 'streampltformdetail'),
     
     
+    
+    path('review', views.ReviewList.as_view(), name= 'review-list'),
+    
+    path('review/<int:pk>/', views.reviewDetail.as_view(), name= 'review-detail'),
+    
+    
    
    #this is for the function based views
     # path('', views.movie_list, name= 'movie_list'),
