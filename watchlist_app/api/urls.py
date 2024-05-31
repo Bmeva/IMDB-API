@@ -19,9 +19,16 @@ urlpatterns = [
     
     
     
-    path('review', views.ReviewList.as_view(), name= 'review-list'),
+    # path('review/', views.ReviewList.as_view(), name= 'review-list'),
     
-    path('review/<int:pk>/', views.reviewDetail.as_view(), name= 'review-detail'),
+    # path('review/<int:pk>/', views.reviewDetail.as_view(), name= 'review-detail'),
+    
+    
+    path('stream/<int:pk>/review-create', views.ReviewCreate.as_view(), name= 'review-create'),
+    path('stream/<int:pk>/Reviewsingle', views.Reviewsingle.as_view(), name= 'review-list'),
+    path('streamreviewall/', views.ReviewList.as_view(), name= 'review-list'),
+    path('stream/review/<int:pk>/', views.reviewDetail.as_view(), name= 'review-detail'),
+    
     
     
    

@@ -5,7 +5,8 @@ from watchlist_app.models import watchlist, streamplatform, Review
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = "__all__"
+        exclude = ('Watchlist',)
+        #fields = "__all__"
 
 
 class watchlistSerializer(serializers.ModelSerializer):
