@@ -69,4 +69,59 @@ Provide a one-off default now (will be set on all existing rows with a null valu
  2) Quit and manually define a default value in models.py.
 
  press 1 and then type None
- 
+
+
+
+ POSTMAN 
+ GO to POSTMAN.com and create a free account
+
+ evansboma@gmail.com
+ bmeva
+Nedva@5412345
+
+search for POSTMAN download and download the app then signin
+
+on postman you can do everything you do on the browsable API
+for example you can type http://127.0.0.1:8000/streamviewset/4 in the search field
+if you go to headers you can see everything that you need to do such as post, delete, patch, put etc
+
+to update go to 
+
+http://127.0.0.1:8000/streamviewset/4/ Note that if you dont add /after the id (4) it would give an error
+
+it would display this 
+{
+    "id": 4,
+    "name": "Netflix",
+    "about": "The netflix",
+    "website": "http://mevab.com"
+}
+
+
+then select put then select body then raw and select json
+then type 
+
+{
+    "name": "Netflix",
+    "about": "The netflix updated",
+    "website": "http://mevab.com"
+}
+
+TO SEND A POST REQUEST GO TO http://127.0.0.1:8000/streamviewset/
+CHANGE IT BACK TO GET WHICH would list all the stream list and then click on send
+
+type 
+{
+    "name": "DaZone",
+    "about": "The nedazone site",
+    "website": "http://mevab.com"
+}
+change it to POST
+
+then click on post to add new watchlist
+
+
+to delete go to the url http://127.0.0.1:8000/streamviewset/5/
+then click get and click send to display it
+
+then select delete and click send

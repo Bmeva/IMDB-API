@@ -13,15 +13,31 @@ from watchlist_app.api.serializers import (watchlistSerializer, StreamPlatformSe
 from rest_framework import generics
 #from rest_framework import mixins 
 
+from rest_framework import viewsets
+from rest_framework.exceptions import ValidationError
+
 
 
 class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
+    
+    def get_queryset(self):
+        return Review.objects.all()
+    
     def perform_create(self, serializer):
         pk = self.kwargs.get('pk')
-        movie = watchlist.objects.get(pk=pk)
+       #movie = watchlist.objects.get(pk=pk)
+        movie = get_object_or_404(watchlist, pk=pk)
         
-        serializer.save(Watchlist = movie)
+       
+        
+        thereview_user = self.request.user
+        review_queryset = Review.objects.filter(Watchlist = movie, review_user = thereview_user)
+        
+        if review_queryset.exists():
+            raise ValidationError('You have already reviewd this movie')
+        
+        serializer.save(Watchlist = movie, review_user = thereview_user)
 
 class Reviewsingle(generics.ListAPIView):
     #queryset = Review.objects.all()
@@ -60,6 +76,39 @@ class reviewDetail(generics.RetrieveUpdateDestroyAPIView):
     
 #     def post(self, request, *args, **kwargs):
 #         return self.create(request, *args, **kwargs)
+
+
+#using viewset which also work like the 
+#API views below but i can also use its url to check individual
+#stream plaltform by adding /4 or the pk of the stream platform
+class StreamPlatformVS(viewsets.ViewSet):
+    def list(self, request):
+        queryset = streamplatform.objects.all()
+        serializer = StreamPlatformSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrieve(self, request, pk=None):
+        queryset = streamplatform.objects.all()
+        thewatchlist = get_object_or_404(queryset, pk=pk)
+        serializer = StreamPlatformSerializer(thewatchlist)
+        return Response(serializer.data)
+    
+    def create(self, request):
+        serializer = StreamPlatformSerializer(data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+    
+
+#Second way to acchieve the up code easier 
+
+class StreamPlatformVS2(viewsets.ModelViewSet):
+#to make it read only use class StreamPlatformVS2(viewsets.ReadOnlyModelViewSet):
+    queryset = streamplatform.objects.all()
+    serializer_class = StreamPlatformSerializer
+    
     
 
 class StreamPlatformAV(APIView):
@@ -106,8 +155,6 @@ class StreamPlatformDetailAV(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
             
       
-
-
 
 
 
