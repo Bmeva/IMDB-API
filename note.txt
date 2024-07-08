@@ -125,3 +125,75 @@ to delete go to the url http://127.0.0.1:8000/streamviewset/5/
 then click get and click send to display it
 
 then select delete and click send
+
+
+Global level persmision in settings
+ # with this users needs to be authenticated before they can access the apis
+ # this is a global level 
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated'
+#     ]
+# }
+
+#IsAdminUser wouldallow only admins. for more permisions go to https://www.django-rest-framework.org/api-guide/permissions/#isadminuser
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAdminUser'
+#     ]
+# }
+
+
+for object level persmision you need to write them in the DEFAULT_PERMISSION_CLASSES
+
+
+if you add this permisions to any function or class then its an object level persmision
+on this url you would see other permisions https://www.django-rest-framework.org/api-guide/permissions/#isadminuser
+class ReviewList(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+
+
+
+Authentication
+
+
+add this to your settings.py which was gotten from https://www.django-rest-framework.org/api-guide/authentication/
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+remove the session authentication
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        
+    ]
+}
+
+if you want to use permision and authentication then add them together
+if you repreat the rest_framework the second would override the first
+
+
+ REST_FRAMEWORK = {
+     'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.IsAdminUser'
+     ],
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework.authentication.BasicAuthentication',
+        
+    ]
+
+ }
+
+

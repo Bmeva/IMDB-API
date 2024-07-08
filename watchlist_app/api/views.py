@@ -16,10 +16,20 @@ from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
+from watchlist_app.api.permissions import AdminOrReadOnlyCustomPerm, ReviewUserOrReadOnly
+
+from watchlist_app.api.avg import calculate
+from watchlist_app.api.avg import RatingCalculator # if i want to use the avg class function instead of the function above (calculate)
 
 class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
+    
+    permission_classes = [AdminOrReadOnlyCustomPerm]
+    #permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticatedOrReadOnly] you can only read if you are not authenticated
+    
     
     def get_queryset(self):
         return Review.objects.all()
@@ -37,7 +47,22 @@ class ReviewCreate(generics.CreateAPIView):
         if review_queryset.exists():
             raise ValidationError('You have already reviewd this movie')
         
+        calculate(pk, serializer) #this is calling from avg.py but if i delete it i can use the code i commented below
+        
+        # calculator = RatingCalculator(pk, serializer) #this and the code below is to calculate with the class
+        # calculator.calculateAvgRating()
+        # new_rating = serializer.validated_data['rating']
+        # if movie.number_rating == 0:
+        #     movie.avg_rating = new_rating
+        # else:
+        #     movie.avg_rating = (movie.avg_rating * movie.number_rating + new_rating) / (movie.number_rating + 1)
+       
+        # movie.number_rating = movie.number_rating + 1 
+        # movie.save()
+        
         serializer.save(Watchlist = movie, review_user = thereview_user)
+        
+        
 
 class Reviewsingle(generics.ListAPIView):
     #queryset = Review.objects.all()
@@ -51,6 +76,7 @@ class Reviewsingle(generics.ListAPIView):
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
     
 
 class reviewDetail(generics.RetrieveUpdateDestroyAPIView):

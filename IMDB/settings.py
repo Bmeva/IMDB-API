@@ -123,3 +123,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ # with this users needs to be authenticated before they can access the apis
+ # this is a global level 
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated'
+#     ]
+# }
+
+#IsAdminUser wouldallow only admins. for more permisions go to https://www.django-rest-framework.org/api-guide/permissions/#isadminuser
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAdminUser'
+#     ]
+# }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        
+    ]
+}

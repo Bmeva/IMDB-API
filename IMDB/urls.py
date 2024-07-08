@@ -30,5 +30,9 @@ urlpatterns = [
         
     path('moviess/', include('watchlist_app.api.urls')),
     
+    path('api-auth/', include('rest_framework.urls')), # this is auto from rest framwork and gives us a temporary login form
+    # with it you would see a drop down log in and log out link on the page. 
+    #the user name is eva and password Nedva@54. it means when you log in you can add and modify information as eva
+    # you can also restrict the role through the admin dashboard
     
 ]
